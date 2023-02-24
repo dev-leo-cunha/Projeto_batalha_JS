@@ -21,6 +21,7 @@ class Knight extends Character {
         this.maxLife = this.life;
         this.attack = 10;
         this.defense = 8;
+        this.img = 'magoAttack'
     }
 }
 class Sorcerer extends Character {
@@ -30,6 +31,7 @@ class Sorcerer extends Character {
         this.maxLife = this.life;
         this.attack = 15;
         this.defense = 3;
+        this.img = 'magoAttack'
     }
 }
 class LittleMonster extends Character {
@@ -39,6 +41,7 @@ class LittleMonster extends Character {
         this.maxLife = this.life;
         this.attack = 4;
         this.defense = 4;
+        this.img = 'littleMonster'
     }
 }
 class BigMonster extends Character {
@@ -48,15 +51,17 @@ class BigMonster extends Character {
         this.maxLife = this.life;
         this.attack = 16;
         this.defense = 6;
+        this.img = 'BigMonster'
     }
 }
 class Stage {
-    constructor(fighter1, fighter2, fighter1El, fighter2El, logObj){
+    constructor(fighter1, fighter2, fighter1El, fighter2El, img, logObj){
         this.fighter1 = fighter1;
         this.fighter2 = fighter2;
         this.fighter1El = fighter1El;
         this.fighter2El = fighter2El;
-        this.log = logObj
+        this.img = img;
+        this.log = logObj;
     }
     start() {
         this.update();
@@ -68,7 +73,7 @@ class Stage {
     }
     update() {
         this.updateScrollLog();
-        // Fighter 1    
+        // Fighter 1
         this.fighter1El.querySelector('.name').innerHTML = `${this.fighter1.name} -- ${this.fighter1.life.toFixed(1)} HP`
         let f1Porcentagem = (this.fighter1.life / this.fighter1.maxLife) * 100; //pegando a porcentagem de life
         this.fighter1El.querySelector('.bar').style.width = `${f1Porcentagem}%` // Alterando o width da barra de life
@@ -84,6 +89,29 @@ class Stage {
            this.updateScrollLog();
             return;
         }
+
+
+
+
+        if(attacking.name === 'Big Monster' || attacking.name === 'Little Monster') {
+            document.querySelector('.imgRight').innerHTML = `<img src="assets/images/${attacking.img}.gif">`;
+
+            setTimeout( function() {
+                document.querySelector('.imgRight').innerHTML ='';
+              }, 2000 );
+
+        } else {
+            document.querySelector('.imgLeft').innerHTML = `<img src="assets/images/${attacking.img}.gif">`;
+
+            setTimeout( function() {
+                document.querySelector('.imgLeft').innerHTML ='';
+              }, 1000 );
+
+        }
+
+
+
+
         let attackFactor =  (Math.random() * 2).toFixed(2); // criando um numero emtre 0.01 ate 2.00
         let defenseFactor = (Math.random() * 2).toFixed(2);
 
